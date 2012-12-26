@@ -1,0 +1,18 @@
+\section{Evaluation}
+
+Since the approach is an unsupervised one, an automated evaluation is hard to achieve. The authors of the paper 
+picked the PASCAL VOC 2007 dataset for their quantitative evaluations, since it is a well known and difficult dataset.\\
+\\
+The dataset furthermore provides annotations to a number of object classes.
+In the paper, an approach is presented where two standard measures for unsupervised discovery are incorporated:
+"purity" and "coverage".\\
+\\
+
+The purity is a measure for what percentage of cluster members belong to the same visual entity, whereas coverage is defined
+to be the number of images in the dataset "covered" by the dataset.
+In the paper, an approach is presented where the semantic category annotations of the PASCAL dataset are used as a measure for
+visual similarity. First a semantic category is assigned to the top 1000 discovered discriminative patches (using majority membership).
+Purity is then measured as the percentage of patches assigned to the same PASCAL semantic category.
+Maybe in our work we could find a similar dataset with annotated semantic objects in the image and measure the performance on another dataset.\\
+\\
+The authors also presented another method which could ease evaluation. If the algorithm is trained on a set of images which show well-known scenes, the algorithm will extract the most discriminative patches out of these scene images and the patches can then be annotated with the scene category. With the extracted patches scene categorization can be done on a labeled test dataset and the performance can easily  be measured. In the paper the authors used the MIT Indoor-67 dataset, we could possibly use a different labelled dataset of image scenes.

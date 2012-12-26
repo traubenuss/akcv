@@ -1,0 +1,26 @@
+\section{Method of the Algorithm}
+
+In this section a short overview of the algorithm itself is given.
+The detection of discriminative patches is done by iterative clustering and learning SVM classifiers in HOG space. As in all iterative algorithms, there is an initializing part and a repeating process. The most important steps of these are described below.\\
+
+Initializing steps
+\begin{itemize}
+\item Calculate HOG descriptors on all input images of a given input image set $\mathcal{D}$ in multiple scales (HOG with 8x8 cells and a stride of 8 pixels/cell)
+\item Calculate the same descriptors on an image set called $\mathcal{N}$, which represents the "whole visual world" and should be much larger than $\mathcal{D}$
+\item Split set $\mathcal{D}$ in equal parts (called $\mathcal{D}_1$ and $\mathcal{D}_2$) and $\mathcal{N}$ in $\mathcal{N}_1$ and $\mathcal{N}_2$ for cross validation
+\item Randomly sample $\mathcal{S}$ patches of $\mathcal{D}_1$ (excluding patches with high overlap and low gradient energy)
+\item perform k-means clustering with $k \approx \lvert\mathcal{S}\rvert/4$
+\item remove clusters with less than 3 patches
+\end{itemize}
+
+Iterative part
+\begin{itemize}
+\item Train linear SVM classifiers using the patches of each cluster as positive set and all patches of $\mathcal{N}_1$ as negative set.
+(If $\mathcal{D}$ is a subset of $\mathcal{N}$, exclude patches from $\mathcal{N}$ where normalized cross-correlation $> 0.4$)
+\item Run the trained SVM's on all patches of $\mathcal{D}_2$
+\item Determine new clusters by the top 5 most firing patches of each learned SVM (SVM score above $-1$ is considered as firing)
+\item Remove clusters which consist of less than 2 patches
+\item Switch the role of $\mathcal{D}_1$, $\mathcal{N}_1$ and $\mathcal{D}_2$, $\mathcal{N}_2$ (when again training the SVM's, clusters now consist of patches from the other subset of $\mathcal{D}$)
+\end{itemize}
+
+As an abortion criteria non existent changing of the top 5 patches each cluster can be considered.

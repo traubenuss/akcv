@@ -1,0 +1,12 @@
+\section{Implementation}
+
+To implement the algorithm as described above in MATLAB, many build-in functionalities can be used.
+The k-means algorithm as well as SVM training and classifier methods are provided by default.\\
+To calculate the HOG descriptors, additional to the standard MATLAB commands the VLFeat package will be included.\\
+
+To handle the enormous amount of data, the idea is to store only the HOG features of the images at different scales in the memory. A patch is then defined by an own data structure which only contains the position, the size and a reference to the origin image. Hence each required HOG descriptor of a patch can be extracted from the HOG descriptor of the origin image on demand.\\
+
+To get a natural world set $\mathcal{N}$ which is supposed contain the "whole visual world", we stick to the idea of the paper\footnote{'Unsupervised Discovery of Mid-level Discriminative Patches' from S. Singh et. al.} and sample about 6000 random images from flickr.com.\\
+
+Unfortunately on the website\footnote{http://graphics.cs.cmu.edu/projects/discriminativePatches/} of the paper, there is yet no source code online for comparison.
+
