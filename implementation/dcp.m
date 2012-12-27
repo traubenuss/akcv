@@ -1,0 +1,19 @@
+%% ----------------- Discriminative Classifier Parts ----------------------
+% AKCV-KU WS 2012, University of Technology, Graz
+% 
+% sample execution script of the framework
+% 
+
+%% Initial steps
+close all
+clear all
+clc
+% initialise VLFeat
+run('vlfeat-0.9.16/toolbox/vl_setup')
+% generate world set
+
+%% Extracting most discriminative patches
+
+%% Visualisation of the results
+
+%% Evaluation of the results
