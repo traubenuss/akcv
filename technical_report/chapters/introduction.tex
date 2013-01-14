@@ -1,1 +1,32 @@
 \section{Introduction}
+
+In general, for object recognition it is desirable to find visual representations more compact than a full image to 
+speed up the recognition task and minimize memory consumption. Examples for such ``sparse'' represenations are visual words,
+bags of visual words or the deformable parts model. Singh et al. in \cite{Singh2012DiscPat} propose an \textit{unsupervised} method for finding mid-level
+discriminative patches which according to them is not only more intuitive and reasonable for humans, but also offers very good discriminability,
+broad coverage, better purity and improved performance to visual word features.\\
+\\
+Image patches used as features to represent an image may be chosen on a range of levels of representation.
+To further quote from \cite{Singh2012DiscPat}, at the very low-level, bottom-up point of view an image patch simply represents
+the appearance at its position in the image, either directly (with raw pixels \cite{Ulman2002VisualFeatures}) or transformed into a different representation (see \cite{Singh2012DiscPat} for examples).
+A bit more high-level approach would be SIFT matching, which encodes patches at sparse interest points in a rotation- and scale-invariant 
+way \cite{Lowe2004SIFT}. According to \cite{Singh2012DiscPat}, such bottom-up approaches work very well for instance recognition, but the results 
+e.g. finding similar instance are not as good.\\
+\\
+As a result, researchers have started to go with more high-level features which unfortunately come with a number of significant practial barriers,
+as listed in \cite{Sing2012DiscPat} like non-trivial amounts of hand-labeled training data per semantic entity (object, part etc.) and a lack
+of visual discriminativeness to act as good features for some semantic entities.\\
+\\
+The algorithm proposed by Singh et al. extracts \textit{mid level} discriminative patches. These patches may correspond to parts, objects, ``visual phrases''
+but don't necessarily have to. What is special about the method is that the patches are discovered in an unsupervised manner on just a pile of training images.
+The patches are defined by their \textit{representative}(how often they occur in the visual world) and \textit{discriminative} property (how much they differ from the rest of the visual world).
+To detect the patches, Singh et al. pose this as an unsupervised discriminative clustering problem on a huge unlabeled dataset of image patches.
+They use an iterative procedure which alternates between clusering and training discriminative classifiers (using a linear SVM) while appyling 
+cross-validation to prevent over-fitting.\\
+\\
+The authors of \cite{Singh2012DiscPat} also claim that their method can be used in a supervised setting and reaches state-of-the-art performance,
+beating bag-of-words, spatial pyramdis \cite{Lazebnik2006SpatialPyr}, ObjectBank \cite{Li2010ObjectBank} and scene deformable-parts models \cite{Pandey2011PartBased} on the MIT Indoor-67 dataset \cite{MITIndoor}.\\
+\\
+In the paper \cite{doersch2012what}, Doersch et al. present an application of the described method. They extracted discriminative patches f
+rom a huge database of images of Paris street scenes and then trained a classifier from them. As the authors say, these discriminative
+patches are what makes Paris look like Paris. The classifier can be used to categorize street scenes to be Paris or non-Paris.
