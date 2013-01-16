@@ -4,7 +4,7 @@ function params = dcp_load_params
 % WORLD SET SPECIFIC
 
 %absolute path to image dir
-params.img_dir = '/home/cbichler/Dokumente/Studium/AKCV/world_set_images';
+params.img_dir = 'testimg';
 params.n_images= 10;
 
 %minimum and maximum numbers of patches the algorithm
