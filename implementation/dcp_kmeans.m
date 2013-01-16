@@ -1,9 +1,16 @@
-function K = dcp_kmeans(params, samples)
+function K = dcp_kmeans(params, data)
 
 % cols = datapoints
 % rows = dimensions
-[dim ndata] = size(samples);
+[~, ndata] = size(data);
 
-(X, 10, 'verbose', 'distance', 'l1', 'algorithm', 'elkan') 
+nclusters = floor(ndata/params.kmeans_nclusterfactor);
+
+[centers assign] = vl_kmeans(data, nclusters,...
+                           'distance', params.kmeans_distance, ...
+                           'algorithm', params.kmeans_algorithm);
+                       
+K.centers    = centers;
+K.assignment = assign;
 
 end
