@@ -10,7 +10,13 @@ clear all
 clc
 % initialise VLFeat
 run('vlfeat-0.9.16/toolbox/vl_setup')
-% generate world set
+
+% load DCP specific parameters
+params = dcp_load_params;
+
+% generate world set if it doesn't exist
+dcp_generate_world_set('world_images', 'world_set.mat', false);
+
 
 %% Extracting most discriminative patches
 

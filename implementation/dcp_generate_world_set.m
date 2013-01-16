@@ -10,3 +10,11 @@ function already_exists = dcp_generate_world_set(world_set_folder_name, world_se
 %         already exists or was already existing.
 
 already_exists = false;
+
+if ~exist('world_set.mat')
+    already_exists = true;
+end
+
+if ~overwrite
+    return;
+end
