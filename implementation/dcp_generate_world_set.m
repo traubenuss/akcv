@@ -47,15 +47,14 @@ for num=1:size(chosen_files,2)
     
     %compute hog features for patches
     for indx=1:size(patches,1)
-        cellSize = 8;
         hog_img = patches{indx}.data;
-        
-        hog_res = vl_hog(hog_img, cellSize,'numOrientations', 8);
+
+        hog_result = vl_hog(im2single(I), 8, 'numOrientations', 8);
         
         if(hog_index < expected_patch_number)
-            hog_features_res{hog_index} = hog_res;
+            hog_features_res{hog_index} = hog_result;
         else
-            hog_features_res = {hog_features; hog_res};
+            hog_features_res = {hog_features; hog_result};
         end
         hog_index = hog_index + 1; 
     end
