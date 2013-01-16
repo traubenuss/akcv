@@ -9,6 +9,7 @@ close all
 clear all
 clc
 % initialise VLFeat
+addpath('utils')
 run('vlfeat-0.9.16/toolbox/vl_setup')
 
 % load DCP specific parameters

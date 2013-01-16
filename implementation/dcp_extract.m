@@ -16,6 +16,8 @@ npictures = size(discovery_set,1);
 % extract patches from all images
 npatches_per_pic = ceil(params.npatches*params.one_patch_out_of/npictures);
 
+
+hog_patches = cell(1, npatches_per_pic*npictures);
 for i = 1:npictures
     % read image
     I = im2single(vl_imreadgray(discovery_set{i}));
@@ -25,20 +27,53 @@ for i = 1:npictures
     patches = dcp_get_random_patches(params, I, npatches_per_pic);
     if isempty(patches)
         display('An error occured with the input data');
+        patches = [];
         return; 
     end
     
-    % calculate HOG descriptors of dicovery set
+    % calculate HOG descriptors of dicovery set (for each patch)
+    for j = 1:size(patches,2)
+        % hog = calc_hog(patches{j}.data);
+        idx = (i-1)*npictures + j;
+        hog_patches{idx}.hog = hog;
+        hog_patches{idx}.img_nr = i;
+        hog_patches{idx}.rect = patches{j}.rect;
+    end
     
-    
-    % store mapping
 end
 
+display(['init: extracted ' num2str(size(hog_patches,2)) ' patches']);
 
 
 % permutate patches of both discovery and world set randomly and
-% divide discovery_set and world_set into two subsets
-shuffled_indizes = randperm();
+% shuffled_indizes = randperm(size(hog_patches,2));
+
+% divide D and N into D1,D2 and N1,N2
+%D1 = shuffled_indizes(1:ceil(size(hog_patches,2)/2));
+%D2 = shuffled_indizes(ceil(size(hog_patches,2)/2)+1:size(hog_patches,2));
+
+%shuffled_indizes = randperm(1:size(world_patches,2));
+%N1 = shuffled_indizes(1:ceil(size(world_patches,2)/2));
+%N2 = shuffled_indizes(ceil(size(world_patches,2)/2)+1:size(world_patches,2));
 
 
-patches = 0;
+% divide patches of discovery_set and world_set into two subsets
+% to avoid copying data, use D1, D2, N1 and N2 just as an index
+D1 = 1:ceil(size(hog_patches,2)/2);
+D2 = ceil(size(hog_patches,2)/2)+1:size(hog_patches,2);
+N1 = 1:ceil(size(world_patches,2)/2);
+N2 = ceil(size(world_patches,2)/2)+1:size(world_patches,2);
+
+
+% sample subset S of D1 for k-means
+
+
+% cluster patches using k-means
+
+
+
+
+
+
+patches = [];
+

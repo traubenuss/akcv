@@ -4,6 +4,7 @@ function patches = dcp_get_random_patches(params, I, npatches)
 %         patches struct: data - the image data
 %                         rect - the patch rectangle of the image I
 
+tic
 [img_rows img_cols] = size(I);
 
 maxsz = min(params.pat_maxsz, min(img_rows, img_cols));
@@ -33,5 +34,5 @@ for i = 1:npatches
     
     rand_idx = rand_idx + 3;
 end
-
+toc
 end
