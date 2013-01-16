@@ -30,7 +30,7 @@ end
 %chosen_files is the set of indizes of the fileList vector chosen for
 %further computations
 
-expected_patch_number = size(chosen_files,2) .* (params.n_ppi_max - params.n_ppi_min)
+expected_patch_number = size(chosen_files,2) .* (params.n_ppi_max + params.n_ppi_min)/2;
 
 hog_features_res = cell(1, expected_patch_number);
 hog_index = 1;
