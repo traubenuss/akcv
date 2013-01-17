@@ -66,11 +66,10 @@ N2 = ceil(size(world_patches,2)/2)+1:size(world_patches,2);
 
 
 % sample subset S of D1 for k-means
-
+S = dcp_init_sample_for_kmeans(params, D1, hog_patches);
 
 % cluster patches using k-means
-
-
+K = dcp_kmeans(params, S, hog_patches);
 
 
 

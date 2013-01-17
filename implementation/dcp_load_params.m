@@ -29,7 +29,9 @@ params.pat_minsz = 80;  % minimum size of one patch (must not be smaller than
 params.kmeans_init_grad_threshold = 100; % threshold for the gradient energy
                                          % if a patch is chosen for the
                                          % initial cluserting
-params.kmeans_init_S_sz = 1/20;
+params.kmeans_init_S_sz = 1/20; % which portion of the patches of the half 
+                                % discovery set is used for the first
+                                % clustering
 params.kmeans_nclusterfactor = 4;
 params.kmeans_distance = 'l2';
 params.kmeans_algorithm = 'elkan';
