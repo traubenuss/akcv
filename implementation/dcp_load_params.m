@@ -4,8 +4,8 @@ function params = dcp_load_params
 % WORLD SET SPECIFIC
 
 %absolute path to image dir
-params.img_dir = 'world_set_images';
-params.n_images= 10;
+params.img_dir = '/home/cbichler/Dokumente/Studium/AKCV/SUN2012pascalformat/JPEGImages';
+params.n_images= 500;
 
 %minimum and maximum numbers of patches the algorithm
 %extracts from images of the world set

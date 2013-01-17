@@ -2,7 +2,7 @@ function fileList = getFilesInDirAndSubDirs(dirName)
 
   dirData = dir(dirName);     
   dirIndex = [dirData.isdir];  
-  fileList = {dirData(~dirIndex).name}'
+  fileList = {dirData(~dirIndex).name}';
   if ~isempty(fileList)
     fileList = cellfun(@(x) fullfile(dirName,x),...  
                        fileList,'UniformOutput',false);
