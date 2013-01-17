@@ -78,7 +78,7 @@ K = dcp_kmeans(params, S, hog_patches);
 
 for j = 1:5   % TODO: -> while converged()
     for i = 1:size(K,2)
-        C = dcp_train_svm(params, K, hog_patches, N1, world_set);
+        C = dcp_train_svm(params, K, D1, hog_patches, N1, world_set);
     end
     
 end

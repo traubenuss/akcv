@@ -23,7 +23,8 @@ for i = 1:size(D1,2)
 end
 
 if S_count < S_sz
-    display('Warning: kmeans: too less patches with enough gradient energy in subset D1');
+    display(['Warning: kmeans: too less patches with enough gradient energy in subset D1: ', ...
+              num2str(S_count), ' instead of ', num2str(S_sz)]);
     S = S(1:S_count);
 end
 

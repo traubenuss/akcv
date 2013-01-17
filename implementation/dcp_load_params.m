@@ -47,7 +47,8 @@ params.kmeans_algorithm = 'elkan';
 
 % SVM specific
 
-params.C = 0.1;
+params.svm_C = 0.1;
+params.svm_hard_minining_niters = 12; % number of iterations of negative hard mining
 
 
 end
