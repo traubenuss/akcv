@@ -10,11 +10,14 @@ function patches = dcp_extract(params, discovery_set, world_set)
 % Before calling this function, make sure that a valid world set is present.
 % Otherwise generate it by executing 'dcp_generate_world_set.m' once
 
+%==========================================================================
 % Initial steps
+
 npictures = size(discovery_set,1);
 
 % extract patches from all images
-npatches_per_pic = ceil(params.npatches*params.one_patch_out_of/npictures);
+npatches_per_pic = min(ceil(params.npatches*params.one_patch_out_of/npictures),...
+                       params.max_npatches_per_pic);
 
 
 hog_patches = cell(1, npatches_per_pic*npictures);
@@ -33,7 +36,8 @@ for i = 1:npictures
     
     % calculate HOG descriptors of dicovery set (for each patch)
     for j = 1:size(patches,2)
-        % hog = calc_hog(patches{j}.data);
+        
+        hog = dcp_hog(params, patches{j}.data);
         idx = (i-1)*npictures + j;
         hog_patches{idx}.hog = hog;
         hog_patches{idx}.img_nr = i;
@@ -56,22 +60,28 @@ display(['init: extracted ' num2str(size(hog_patches,2)) ' patches']);
 %N1 = shuffled_indizes(1:ceil(size(world_patches,2)/2));
 %N2 = shuffled_indizes(ceil(size(world_patches,2)/2)+1:size(world_patches,2));
 
-
 % divide patches of discovery_set and world_set into two subsets
 % to avoid copying data, use D1, D2, N1 and N2 just as an index
 D1 = 1:ceil(size(hog_patches,2)/2);
 D2 = ceil(size(hog_patches,2)/2)+1:size(hog_patches,2);
-N1 = 1:ceil(size(world_patches,2)/2);
-N2 = ceil(size(world_patches,2)/2)+1:size(world_patches,2);
-
+N1 = 1:ceil(size(world_set,2)/2);
+N2 = ceil(size(world_set,2)/2)+1:size(world_set,2);
 
 % sample subset S of D1 for k-means
 S = dcp_init_sample_for_kmeans(params, D1, hog_patches);
 
-% cluster patches using k-means
+% cluster patches using k-means and prune the clusters
 K = dcp_kmeans(params, S, hog_patches);
 
+%==========================================================================
+% Iterative Part
 
+for j = 1:5   % TODO: -> while converged()
+    for i = 1:size(K,2)
+        C = dcp_train_svm(params, K, hog_patches, N1, world_set);
+    end
+    
+end
 
 
 patches = [];
