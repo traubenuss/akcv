@@ -14,7 +14,7 @@ params.n_ppi_max = 30;
 
 %==========================================================================
 % HOG Descriptor
-params.hog_cell_size = 8;
+params.hog_cell_size = 10;
 params.hog_num_orient = 8;
 params.hog_stride = 8;
 
