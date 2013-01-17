@@ -9,7 +9,7 @@ function world_set = dcp_generate_world_set(params, world_set_img_folder, world_
 % return: boolean value, indicates if the file for the world set data
 %         already exists or was already existing.
 
-
+tic
 if exist('world_set.mat') && ~overwrite
     world_set = load(world_set_filename, 'world_set');
     return;
@@ -37,21 +37,21 @@ hog_index = 1;
 
 %now, compute hog vectors for a random number of patches for every image
 for num=1:size(chosen_files,2)
+    num
     %get the next image
     fileList{chosen_files(num)};
     I = vl_imreadgray(fileList{chosen_files(num)});
     %get random number of patches
-    rand_patch_num = floor(params.n_ppi_min + rand(1,1) * (params.n_ppi_max - params.n_ppi_min))
+    rand_patch_num = floor(params.n_ppi_min + rand(1,1) * (params.n_ppi_max - params.n_ppi_min));
     patches = dcp_get_random_patches(params, I, rand_patch_num);
 
     %compute hog features for patches
     for indx=1:size(patches,2)
-        cellSize = 8;
-        hog_img = im2single(patches{indx}.data);
+        hog_img = patches{indx}.data;
         
-        hog_result = vl_hog(hog_img, cellSize,'numOrientations', 8);
+        hog_result = dcp_hog(params, hog_img);
         
-        if(hog_index < expected_patch_number)
+        if(hog_index <= expected_patch_number)
             hog_features_res{hog_index} = hog_result;
         else
             hog_features_res{end+1} = hog_result;
@@ -60,5 +60,7 @@ for num=1:size(chosen_files,2)
     end
 end
 
+hog_features_res
 save('world_set.mat', 'hog_features_res');
 world_set = true;
+toc

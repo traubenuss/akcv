@@ -22,7 +22,7 @@ patches = cell(1,npatches);
 for i = 1:npatches
     % select random size
     sz = params.pat_minsz + ceil(r(rand_idx) * (maxsz-params.pat_minsz));
-    
+    sz = min(sz, min(img_rows, img_cols)-1);
     % select random top left corner
     tl = [ceil(r(rand_idx+1) * (img_rows-sz)) ceil(r(rand_idx+2) * (img_cols-sz))];
     br = tl + sz;
