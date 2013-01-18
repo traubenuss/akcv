@@ -54,4 +54,8 @@ params.svm_hard_minining_niters = 3; % number of iterations of negative hard min
 params.svm_min_score = -1;
 params.svm_prune_clusters_thres = 2; % remove clusters with less then this firings on the validation set
 
+
+% Evaluation
+
+params.cluster_purity_r = 10;
 end
