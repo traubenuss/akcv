@@ -19,10 +19,11 @@ params = dcp_load_params();
 world_set = dcp_generate_world_set(params, 'world_images', 'world_set.mat', false);
 
 % specify discovery set
-dicovery_set = {'test.jpg'};
+discovery_set = getFilesInDirAndSubDirs('test_bus');
+
 
 %% Extracting most discriminative patches
-patches = dcp_extract(params, dicovery_set, world_set);
+patches = dcp_extract(params, discovery_set, world_set);
 
 %% Visualisation of the results
 

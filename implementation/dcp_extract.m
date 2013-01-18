@@ -38,7 +38,7 @@ for i = 1:npictures
     for j = 1:size(patches,2)
         
         hog = dcp_hog(params, patches{j}.data);
-        idx = (i-1)*npictures + j;
+        idx = (i-1)*npatches_per_pic + j;
         hog_patches{idx}.hog = hog;
         hog_patches{idx}.img_nr = i;
         hog_patches{idx}.rect = patches{j}.rect;

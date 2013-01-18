@@ -24,11 +24,18 @@ for i = 1:params.svm_hard_minining_niters
     
     % where was this negative set false classified?
     hard_minings = find(y_negatives > params.svm_min_score);
-    Y_neg = int8(-1*ones(1,size(hard_minings,2)));
+    Y_neg_minings = int8(-1*ones(1,size(hard_minings,2)));
     
-    [C.w C.b] = vl_pegasos([X_pos world_set(:,hard_minings)], [Y_pos Y_neg], 0.1);
     display(['train SVM.. ', num2str(i), ' / ', num2str(params.svm_hard_minining_niters),...
              ' Negatives: ', num2str(numel(hard_minings))]);
+         
+    if numel(hard_minings) == 0
+        break;
+    end
+    
+    [C.w C.b] = vl_pegasos([X_pos world_set(:,N1) world_set(:,hard_minings)], [Y_pos Y_neg Y_neg_minings], 0.1);
+    
+         
 end 
 
 

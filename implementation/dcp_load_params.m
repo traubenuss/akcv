@@ -49,8 +49,8 @@ params.kmeans_algorithm = 'elkan';
 % SVM specific
 
 params.svm_C = 0.1;
-params.svm_hard_minining_niters = 3; % number of iterations of negative hard mining
-params.svm_min_score = -1;
+params.svm_hard_minining_niters = 12; % number of iterations of negative hard mining
+params.svm_min_score = 0;
 params.svm_prune_clusters_thres = 2; % remove clusters with less then this firings on the validation set
 
 end
