@@ -75,7 +75,7 @@ Clusters = dcp_kmeans(params, S, hog_patches);
 
 %==========================================================================
 % Iterative Part
-
+display([num2str(size(Clusters,1)), ' Clusters left']);
 display('starting iterative part...');
 for j = 1:1   % TODO: -> while converged()
     to_delete = [];
@@ -87,6 +87,7 @@ for j = 1:1   % TODO: -> while converged()
         end
     end
     Clusters(to_delete) = []; % prune out small clusters
+    display([num2str(size(Clusters,1)), ' Clusters left']);
     
     temp = D1; D1 = D2; D2 = temp; % swap D1, D2
     temp = N1; N1 = N2; N2 = temp; % swap N1, N2
