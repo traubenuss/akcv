@@ -20,9 +20,10 @@ parfor cluster_index=1:cluster_size
     
     [sorted_patch_scores, sorted_patch_indizes] = sort(patch_scores,'descend');
     
-    purity = sum(sorted_patch_scores(1:params.cluster_purity_r));   
-    Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:params.cluster_purity_r);
-    Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:params.cluster_purity_r);
+    endindex = min(params.cluster_purity_r,size(patch_scores,2));
+    purity = sum(sorted_patch_scores(1:endindex));   
+    Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
+    Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
         
     N_scores = Clusters{cluster_index}.C.w'*world_set - Clusters{cluster_index}.C.b;
     num_firings_N = sum(N_scores > params.svm_min_score);
