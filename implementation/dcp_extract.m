@@ -93,6 +93,8 @@ for j = 1:1   % TODO: -> while converged()
     
 end
 
+%score the clusters
+dcp_score_cluster(params, Clusters, world_set, hog_patches);
 
 patches = [];
 
