@@ -5,19 +5,20 @@ function params = dcp_load_params
 
 %absolute path to image dir
 params.img_dir = '/home/cbichler/Dokumente/Studium/AKCV/SUN2012pascalformat/JPEGImages';
-params.n_images= 500;
+params.n_images= 6000;
 
 %minimum and maximum numbers of patches the algorithm
 %extracts from images of the world set
-params.n_ppi_min = 10;
-params.n_ppi_max = 30;
+params.n_ppi_min = 40;
+params.n_ppi_max = 60;
 
 %==========================================================================
 % HOG Descriptor
 params.hog_cell_size = 10;
-params.hog_num_orient = 8; % should be 9
-params.hog_stride = 8;
 
+params.hog_num_orient = 9;
+params.hog_stride = 8;
+params.hog_sz = 1984;
 %==========================================================================
 % DCP Extract
 params.npatches = 10;  % number of patches which should be found
@@ -52,5 +53,10 @@ params.svm_C = 0.1;
 params.svm_hard_minining_niters = 12; % number of iterations of negative hard mining
 params.svm_min_score = 0;
 params.svm_prune_clusters_thres = 2; % remove clusters with less then this firings on the validation set
+
+
+% Evaluation
+
+params.cluster_purity_r = 10;
 
 end
