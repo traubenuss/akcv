@@ -1,4 +1,4 @@
-function cluster_scores = dcp_score_cluster(params, Clusters, D, N, hog_patches)
+function dcp_score_cluster(params, Clusters, D, N, hog_patches)
 
 %first, compute purity of the cluster (=> SVM score of top r cluster
 %members, where r > m to evaluate generalization)
@@ -18,7 +18,7 @@ parfor cluster_index=1:cluster_size
     patch_scores = patch_scores(patch_scores > params.svm_min_score);
     num_firings_D = sum(patch_scores);
     
-    [sorted_patch_scores, sorted_patch_index] = sort(patch_scores,'descend');
+    [sorted_patch_scores, ~] = sort(patch_scores,'descend');
     
     purity = sum(sorted_patch_scores(1:params.cluster_purity_r));   
     Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:params.cluster_purity_r);
