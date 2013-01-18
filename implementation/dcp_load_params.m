@@ -58,5 +58,6 @@ params.svm_prune_clusters_thres = 2; % remove clusters with less then this firin
 % Evaluation
 
 params.cluster_purity_r = 10;
+params.discriminativeness_weight = 1;
 
 end
