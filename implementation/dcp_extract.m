@@ -93,6 +93,14 @@ for j = 1:1   % TODO: -> while converged()
     
 end
 
+% get the best
 
-patches = [];
+
+% return the patch information
+patches = cell(1,size(the_best,2));
+for i = 1:size(the_best,2)
+    patches{i}.img_nr = hog_patches{the_best(i)}.img_nr;
+    patches{i}.rect   = hog_patches{i}.rect;
+end
+
 

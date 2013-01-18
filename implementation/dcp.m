@@ -26,5 +26,6 @@ discovery_set = getFilesInDirAndSubDirs('test_bus');
 patches = dcp_extract(params, discovery_set, world_set);
 
 %% Visualisation of the results
+dcp_visualise_patches(params, patches, discovery_set);
 
 %% Evaluation of the results
