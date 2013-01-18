@@ -71,15 +71,25 @@ N2 = ceil(size(world_set,2)/2)+1:size(world_set,2);
 S = dcp_init_sample_for_kmeans(params, D1, hog_patches);
 
 % cluster patches using k-means and prune the clusters
-K = dcp_kmeans(params, S, hog_patches);
+Clusters = dcp_kmeans(params, S, hog_patches);
 
 %==========================================================================
 % Iterative Part
 
-for j = 1:5   % TODO: -> while converged()
-    for i = 1:size(K,2)
-        C = dcp_train_svm(params, K, D1, hog_patches, N1, world_set);
+display('starting iterative part...');
+for j = 1:1   % TODO: -> while converged()
+    to_delete = [];
+    for i = 1:size(Clusters,2)
+        Clusters{i}.C = dcp_train_svm(params, D1(Clusters{i}.members), hog_patches, N1, world_set);
+        Clusters{i} = dcp_detect_top(params, Clusters{i}.C, D2, hog_patches);
+        if size(Clusters{i}.members,2) < params.svm_prune_clusters_thres
+            to_delete = [to_delete i];
+        end
     end
+    Clusters(to_delete) = []; % prune out small clusters
+    
+    temp = D1; D1 = D2; D2 = temp; % swap D1, D2
+    temp = N1; N1 = N2; N2 = temp; % swap N1, N2
     
 end
 
