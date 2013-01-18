@@ -94,7 +94,9 @@ for j = 1:1   % TODO: -> while converged()
     
 end
 
-% get the best
+
+%score the clusters
+dcp_score_cluster(params, Clusters, world_set, hog_patches);
 
 
 % return the patch information
