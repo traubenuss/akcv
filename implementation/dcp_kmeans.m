@@ -1,4 +1,4 @@
-function K = dcp_kmeans(params, S, hog_patches)
+function Clusters = dcp_kmeans(params, S, hog_patches)
 
 tic
 % extract relevant HOGs into matrix
@@ -20,14 +20,14 @@ nclusters = floor(ndata/params.kmeans_nclusterfactor)
 
 
 % delete clusters, with less than 3 patches
-K = cell(1, nclusters);
+Clusters = cell(1, nclusters);
 next_valid_cluster = 1; % does this a little speed up?
 for i = 1:nclusters
     if sum(assign == i) >= params.prune_clusters_thres
-        K{next_valid_cluster}.members = find(assign == i);
+        Clusters{next_valid_cluster}.members = find(assign == i);
         next_valid_cluster = next_valid_cluster + 1;
     else
-        K(next_valid_cluster) = [];
+        Clusters(next_valid_cluster) = [];
     end
 end
 

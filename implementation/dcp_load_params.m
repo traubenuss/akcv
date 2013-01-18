@@ -15,6 +15,7 @@ params.n_ppi_max = 60;
 %==========================================================================
 % HOG Descriptor
 params.hog_cell_size = 10;
+
 params.hog_num_orient = 9;
 params.hog_stride = 8;
 params.hog_sz = 1984;
@@ -33,6 +34,7 @@ params.pat_minsz = 80;  % minimum size of one patch (must not be smaller than
 
 params.prune_clusters_thres = 3; % remove clusters with less than this
                                  % number of elements
+params.new_cluster_by_top_m = 5;
                         
 % k-means specific
 params.kmeans_init_grad_threshold = 300; % threshold for the gradient energy
@@ -47,7 +49,9 @@ params.kmeans_algorithm = 'elkan';
 
 % SVM specific
 
-params.C = 0.1;
-
+params.svm_C = 0.1;
+params.svm_hard_minining_niters = 3; % number of iterations of negative hard mining
+params.svm_min_score = -1;
+params.svm_prune_clusters_thres = 2; % remove clusters with less then this firings on the validation set
 
 end
