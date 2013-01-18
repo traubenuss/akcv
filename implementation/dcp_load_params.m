@@ -5,19 +5,19 @@ function params = dcp_load_params
 
 %absolute path to image dir
 params.img_dir = '/home/cbichler/Dokumente/Studium/AKCV/SUN2012pascalformat/JPEGImages';
-params.n_images= 500;
+params.n_images= 6000;
 
 %minimum and maximum numbers of patches the algorithm
 %extracts from images of the world set
-params.n_ppi_min = 10;
-params.n_ppi_max = 30;
+params.n_ppi_min = 40;
+params.n_ppi_max = 60;
 
 %==========================================================================
 % HOG Descriptor
 params.hog_cell_size = 10;
-params.hog_num_orient = 8;
+params.hog_num_orient = 9;
 params.hog_stride = 8;
-
+params.hog_sz = 1984;
 %==========================================================================
 % DCP Extract
 params.npatches = 10;  % number of patches which should be found
