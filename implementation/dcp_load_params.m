@@ -16,13 +16,13 @@ params.n_ppi_max = 60;
 % HOG Descriptor
 params.hog_cell_size = 10;
 
-params.hog_num_orient = 8;
+params.hog_num_orient = 9;
 params.hog_stride = 8;
 params.hog_sz = 1984;
 %==========================================================================
 % DCP Extract
-params.npatches = 5;  % number of patches which should be found
-params.one_patch_out_of = 500;%2000;  % how many patches should be considered
+params.npatches = 10;  % number of patches which should be found
+params.one_patch_out_of = 1000;%2000;  % how many patches should be considered
                                  % when detecting one discriminative patch
                                  % (controls runtime)
 params.max_npatches_per_pic = 1000;

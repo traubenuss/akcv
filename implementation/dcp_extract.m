@@ -77,6 +77,7 @@ display([num2str(size(Clusters,2)), ' Clusters formed']);
 
 %==========================================================================
 % Iterative Part
+save('init.mat', 'hog_patches', 'Clusters');
 display('Starting iterative part...');
 for j = 1:params.niterations   % TODO: -> while converged()
     to_delete = [];
@@ -96,10 +97,12 @@ for j = 1:params.niterations   % TODO: -> while converged()
     temp = D1; D1 = D2; D2 = temp; % swap D1, D2
     temp = N1; N1 = N2; N2 = temp; % swap N1, N2
     
+    save(['iter',num2str(j),'.mat'], 'Clusters');
     if params.show_intermediate_results
         patches = dcp_get_patches_of_best_cluster(params, Clusters, 'members', hog_patches);
         dcp_visualise_patches(params, patches, discovery_set, true, j, false);
     end
+    
 end
 
 %score the clusters
