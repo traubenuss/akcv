@@ -82,7 +82,8 @@ display('Starting iterative part...');
 for j = 1:params.niterations   % TODO: -> while converged()
     to_delete = [];
     for i = 1:size(Clusters,2)
-        display(['Training SVM of cluster ', num2str(i), '/', num2str(size(Clusters,2))]);
+        display(['Training SVM of cluster ', num2str(i), '/', num2str(size(Clusters,2)), ...
+                 ', consisting of ', num2str(numel(Clusters{i}.members)), ' members']);
         Clusters{i}.C = dcp_train_svm(params, Clusters{i}.members, hog_patches, N1, world_set);
         display(['Detecting top patches of cluster ', num2str(i), '/', num2str(size(Clusters,2))]);
         Clusters{i} = dcp_detect_top(params, Clusters{i}.C, D2, hog_patches);
