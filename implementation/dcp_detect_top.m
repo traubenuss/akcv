@@ -17,5 +17,6 @@ max_index = sorted_index(1:m);
 Cluster.members = D2(max_index);
 Cluster.C = C;
 Cluster.scores = sorted_scores(1:m);
+Cluster.score = sum(Cluster.scores);
 
 end

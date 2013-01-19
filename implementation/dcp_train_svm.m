@@ -22,7 +22,7 @@ Y_neg_svm = (-ones(size(N1,2),1));
 
 % negative hard mining
 %[C.w C.b] = vl_pegasos([X_pos world_set(:,N1)], [Y_pos Y_neg], 0.01, 'MaxIterations', 5000);
-C = svmtrain([Y_pos_svm; Y_neg_svm], [X_pos_svm; world_set(:,N1)'], '-s 0 -t 0 -c 0.1');
+C = svmtrain([Y_pos_svm; Y_neg_svm], [X_pos_svm; world_set(:,N1)'], '-q -s 0 -t 0 -c 0.1');
 %scores = C.w'*X_pos - C.b;
 %display(['Number of Positives of Trainingset: ', num2str(sum(scores>params.svm_min_score))]);
 
@@ -53,7 +53,7 @@ for i = 1:params.svm_hard_minining_niters
     
     
     %[C.w C.b] = vl_pegasos([X_pos world_set(:,N1) world_set(:,hard_minings)], [Y_pos Y_neg Y_neg_minings], 0.1, 'MaxIterations', 5000);
-    C = svmtrain([Y_pos_svm; Y_neg_svm; Y_neg_minings_svm], [X_pos_svm; world_set(:,N1)'; world_set(:,hard_minings)'], '-s 0 -t 0 -c 0.1');
+    C = svmtrain([Y_pos_svm; Y_neg_svm; Y_neg_minings_svm], [X_pos_svm; world_set(:,N1)'; world_set(:,hard_minings)'], '-q -s 0 -t 0 -c 0.1');
          
 end 
 

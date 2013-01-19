@@ -1,6 +1,5 @@
 function Clusters = dcp_kmeans(params, S, hog_patches)
 
-tic
 % extract relevant HOGs into matrix
 data = zeros(size(hog_patches{1}.hog(:),1), size(S,2));
 for i = 1:size(S,2)
@@ -11,13 +10,12 @@ end
 % rows = dimensions
 [~, ndata] = size(data);
 
-nclusters = floor(ndata/params.kmeans_nclusterfactor)
+nclusters = floor(ndata/params.kmeans_nclusterfactor);
 
-[centers assign] = vl_kmeans(data, nclusters, 'verbose',...
+[centers assign] = vl_kmeans(data, nclusters,...
                            'distance', params.kmeans_distance, ...
                            'algorithm', params.kmeans_algorithm);
                        
-
 
 % delete clusters, with less than 3 patches
 Clusters = cell(1, nclusters);
@@ -31,6 +29,5 @@ for i = 1:nclusters
     end
 end
 
-toc
 
 end

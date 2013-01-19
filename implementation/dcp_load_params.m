@@ -31,7 +31,8 @@ params.pat_maxsz = 300; % maximum size of one patch
 params.pat_minsz = 80;  % minimum size of one patch (must not be smaller than
                         % the size of the HOG features)
 
-
+params.niterations = 5;
+                        
 params.prune_clusters_thres = 3; % remove clusters with less than this
                                  % number of elements
 params.new_cluster_by_top_m = 5;
@@ -59,5 +60,8 @@ params.svm_prune_clusters_thres = 2; % remove clusters with less then this firin
 
 params.cluster_purity_r = 10;
 params.discriminativeness_weight = 1;
+
+params.show_intermediate_results = true;
+params.nintermed_patches_to_visualise = 5;
 
 end

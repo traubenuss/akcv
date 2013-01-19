@@ -43,10 +43,10 @@ for i = 1:npictures
         hog_patches{idx}.img_nr = i;
         hog_patches{idx}.rect = patches{j}.rect;
     end
-    
+    display(['Patches of Image ', num2str(i), ' of ', num2str(npictures), ' extracted'])
 end
 
-display(['init: extracted ' num2str(size(hog_patches,2)) ' patches']);
+display(['Total ' num2str(size(hog_patches,2)) ' patches extracted']);
 
 
 % permutate patches of both discovery and world set randomly and
@@ -73,48 +73,41 @@ display([num2str(size(S,2)), ' Elements in S']);
 
 % cluster patches using k-means and prune the clusters
 Clusters = dcp_kmeans(params, S, hog_patches);
+display([num2str(size(Clusters,2)), ' Clusters formed']);
 
 %==========================================================================
 % Iterative Part
-display([num2str(size(Clusters,2)), ' Clusters left']);
-display('starting iterative part...');
-for j = 1:1   % TODO: -> while converged()
+display('Starting iterative part...');
+for j = 1:params.niterations   % TODO: -> while converged()
     to_delete = [];
     for i = 1:size(Clusters,2)
-        Clusters{i}.C = dcp_train_svm(params, D1(Clusters{i}.members), hog_patches, N1, world_set);
-        %Clusters{i}.C = C;
-        display([num2str(size(Clusters,2)), ' Clusters left1']);
+        display(['Training SVM of cluster ', num2str(i), '/', num2str(size(Clusters,2))]);
+        Clusters{i}.C = dcp_train_svm(params, Clusters{i}.members, hog_patches, N1, world_set);
+        display(['Detecting top patches of cluster ', num2str(i), '/', num2str(size(Clusters,2))]);
         Clusters{i} = dcp_detect_top(params, Clusters{i}.C, D2, hog_patches);
-        display([num2str(size(Clusters,2)-i), ' Clusters left2']);
         if size(Clusters{i}.members,2) < params.svm_prune_clusters_thres
             to_delete = [to_delete i];
         end
     end
     Clusters(to_delete) = []; % prune out small clusters
-    display([num2str(size(Clusters,2)), ' Clusters left']);
+    display([num2str(size(Clusters,2)), ' Clusters left after ',...
+             num2str(j), '/', num2str(params.niterations), ' iterations']);
     
     temp = D1; D1 = D2; D2 = temp; % swap D1, D2
     temp = N1; N1 = N2; N2 = temp; % swap N1, N2
     
-end
-
-%score the clusters
-Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches);
-
-% select top
-the_best_score = 0;
-for i = 1:size(Clusters,2)
-    if Clusters{i}.score > the_best_score
-       the_best = Clusters{i};
-       the_best_score = Clusters{i}.score;
+    if params.show_intermediate_results
+        patches = dcp_get_patches_of_best_cluster(params, Clusters, 'members', hog_patches);
+        dcp_visualise_patches(params, patches, discovery_set, true, j);
     end
 end
 
-% return the patch information
-patches = cell(1,size(the_best.topRPatchesIndex,2));
-for i = 1:size(the_best.members,2)
-    patches{i}.img_nr = hog_patches{the_best.topRPatchesIndex(i)}.img_nr;
-    patches{i}.rect   = hog_patches{the_best.topRPatchesIndex(i)}.rect;
+%score the clusters
+display(['Training finished. Detecting the best cluster...']);
+Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches);
+
+% select top
+display(['Get patches of best cluster...']);
+patches = dcp_get_patches_of_best_cluster(params, Clusters, 'topRPatchesIndex', hog_patches);
+
 end
-
-
