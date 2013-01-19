@@ -69,41 +69,52 @@ N2 = ceil(size(world_set,2)/2)+1:size(world_set,2);
 
 % sample subset S of D1 for k-means
 S = dcp_init_sample_for_kmeans(params, D1, hog_patches);
+display([num2str(size(S,2)), ' Elements in S']);
 
 % cluster patches using k-means and prune the clusters
 Clusters = dcp_kmeans(params, S, hog_patches);
 
 %==========================================================================
 % Iterative Part
-display([num2str(size(Clusters,1)), ' Clusters left']);
+display([num2str(size(Clusters,2)), ' Clusters left']);
 display('starting iterative part...');
 for j = 1:1   % TODO: -> while converged()
     to_delete = [];
     for i = 1:size(Clusters,2)
         Clusters{i}.C = dcp_train_svm(params, D1(Clusters{i}.members), hog_patches, N1, world_set);
+        %Clusters{i}.C = C;
+        display([num2str(size(Clusters,2)), ' Clusters left1']);
         Clusters{i} = dcp_detect_top(params, Clusters{i}.C, D2, hog_patches);
+        display([num2str(size(Clusters,2)-i), ' Clusters left2']);
         if size(Clusters{i}.members,2) < params.svm_prune_clusters_thres
             to_delete = [to_delete i];
         end
     end
     Clusters(to_delete) = []; % prune out small clusters
-    display([num2str(size(Clusters,1)), ' Clusters left']);
+    display([num2str(size(Clusters,2)), ' Clusters left']);
     
     temp = D1; D1 = D2; D2 = temp; % swap D1, D2
     temp = N1; N1 = N2; N2 = temp; % swap N1, N2
     
 end
 
-
 %score the clusters
-dcp_score_cluster(params, Clusters, world_set, hog_patches);
+Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches);
 
+% select top
+the_best_score = 0;
+for i = 1:size(Clusters,2)
+    if Clusters{i}.score > the_best_score
+       the_best = Clusters{i};
+       the_best_score = Clusters{i}.score;
+    end
+end
 
 % return the patch information
-patches = cell(1,size(the_best,2));
-for i = 1:size(the_best,2)
-    patches{i}.img_nr = hog_patches{the_best(i)}.img_nr;
-    patches{i}.rect   = hog_patches{i}.rect;
+patches = cell(1,size(the_best.topRPatchesIndex,2));
+for i = 1:size(the_best.members,2)
+    patches{i}.img_nr = hog_patches{the_best.topRPatchesIndex(i)}.img_nr;
+    patches{i}.rect   = hog_patches{the_best.topRPatchesIndex(i)}.rect;
 end
 
 

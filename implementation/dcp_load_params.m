@@ -16,7 +16,7 @@ params.n_ppi_max = 60;
 % HOG Descriptor
 params.hog_cell_size = 10;
 
-params.hog_num_orient = 9;
+params.hog_num_orient = 8;
 params.hog_stride = 8;
 params.hog_sz = 1984;
 %==========================================================================
@@ -50,8 +50,8 @@ params.kmeans_algorithm = 'elkan';
 % SVM specific
 
 params.svm_C = 0.1;
-params.svm_hard_minining_niters = 12; % number of iterations of negative hard mining
-params.svm_min_score = 0;
+params.svm_hard_minining_niters = 0; % number of iterations of negative hard mining
+params.svm_min_score = -1;
 params.svm_prune_clusters_thres = 2; % remove clusters with less then this firings on the validation set
 
 

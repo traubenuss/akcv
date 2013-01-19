@@ -1,4 +1,4 @@
-function dcp_score_cluster(params, Clusters, world_set, hog_patches)
+function Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches)
 
 %first, compute purity of the cluster (=> SVM score of top r cluster
 %members, where r > m to evaluate generalization)
@@ -11,8 +11,9 @@ parfor cluster_index=1:cluster_size
     patch_scores = ones(1, num_patches_D);
     
     for member_index=1:num_patches_D
-        patch = hog_patches{member_index}.hog(:);
-        patch_scores(member_index) = Clusters{cluster_index}.C.w'*patch - Clusters{cluster_index}.C.b;        
+        patch = double(hog_patches{member_index}.hog(:)');
+        [~, ~, patch_scores(member_index)] = svmpredict(rand(1), patch, Clusters{cluster_index}.C, '-q');
+        %patch_scores(member_index) = Clusters{cluster_index}.C.w'*patch - Clusters{cluster_index}.C.b;        
     end
  
     num_firings_D = sum(patch_scores > params.svm_min_score);
@@ -25,7 +26,8 @@ parfor cluster_index=1:cluster_size
     Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
     Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
         
-    N_scores = Clusters{cluster_index}.C.w'*world_set - Clusters{cluster_index}.C.b;
+    [~, ~, N_scores] = svmpredict(rand(size(world_set',1),1), world_set', Clusters{cluster_index}.C, '-q');
+    %N_scores = Clusters{cluster_index}.C.w'*world_set - Clusters{cluster_index}.C.b;
     num_firings_N = sum(N_scores > params.svm_min_score);
     
     discriminativeness = num_firings_D / num_firings_N;

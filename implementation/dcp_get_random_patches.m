@@ -15,16 +15,16 @@ if maxsz < params.pat_minsz
     return
 end
 
-r = rand(1,3*npatches);
+%r = rand(1,3*npatches);
 
 rand_idx = 1;
 patches = cell(1,npatches);
-for i = 1:npatches
+parfor i = 1:npatches
     % select random size
-    sz = params.pat_minsz + ceil(r(rand_idx) * (maxsz-params.pat_minsz));
+    sz = params.pat_minsz + ceil(rand * (maxsz-params.pat_minsz));
     sz = min(sz, min(img_rows, img_cols)-1);
     % select random top left corner
-    tl = [ceil(r(rand_idx+1) * (img_rows-sz)) ceil(r(rand_idx+2) * (img_cols-sz))];
+    tl = [ceil(rand * (img_rows-sz)) ceil(rand * (img_cols-sz))];
     br = tl + sz;
     
     % extract patch
@@ -32,7 +32,7 @@ for i = 1:npatches
     patches{i}.rect.tl = tl;
     patches{i}.rect.sz = sz;
     
-    rand_idx = rand_idx + 3;
+    %rand_idx = rand_idx + 3;
 end
 toc
 end
