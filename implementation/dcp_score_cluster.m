@@ -26,7 +26,7 @@ parfor cluster_index=1:cluster_size
     Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
     Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
         
-    [~, ~, N_scores] = svmpredict(rand(size(world_set',1),1), world_set', Clusters{cluster_index}.C, '-q');
+    [~, ~, N_scores] = svmpredict(rand(size(world_set',1),1), double(world_set)', Clusters{cluster_index}.C, '-q');
     %N_scores = Clusters{cluster_index}.C.w'*world_set - Clusters{cluster_index}.C.b;
     num_firings_N = sum(N_scores > params.svm_min_score);
     
