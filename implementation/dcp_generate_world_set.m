@@ -10,9 +10,12 @@ function world_set_ret = dcp_generate_world_set(params, world_set_filename, over
 %         already exists or was already existing.
 
 tic
-if exist(world_set_filename) && ~overwrite
-    load(world_set_filename, 'world_set_mat');
-    world_set_ret = world_set_mat;
+if exist(world_set_filename{1}) && ~overwrite
+    world_set_ret = [];
+    for i = 1:size(world_set_filename,2)
+        load(world_set_filename{i}, 'world_set_mat');
+        world_set_ret = [world_set_ret  single(world_set_mat)];
+    end
     return;
 end
 

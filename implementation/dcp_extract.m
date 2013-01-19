@@ -50,11 +50,11 @@ display(['Total ' num2str(size(hog_patches,2)) ' patches extracted']);
 
 
 % permutate patches of both discovery and world set randomly and
-% shuffled_indizes = randperm(size(hog_patches,2));
+shuffled_indizes = randperm(size(hog_patches,2));
 
 % divide D and N into D1,D2 and N1,N2
-%D1 = shuffled_indizes(1:ceil(size(hog_patches,2)/2));
-%D2 = shuffled_indizes(ceil(size(hog_patches,2)/2)+1:size(hog_patches,2));
+D1 = shuffled_indizes(1:ceil(size(hog_patches,2)/2));
+D2 = shuffled_indizes(ceil(size(hog_patches,2)/2)+1:size(hog_patches,2));
 
 %shuffled_indizes = randperm(1:size(world_patches,2));
 %N1 = shuffled_indizes(1:ceil(size(world_patches,2)/2));
@@ -62,8 +62,8 @@ display(['Total ' num2str(size(hog_patches,2)) ' patches extracted']);
 
 % divide patches of discovery_set and world_set into two subsets
 % to avoid copying data, use D1, D2, N1 and N2 just as an index
-D1 = 1:ceil(size(hog_patches,2)/2);
-D2 = ceil(size(hog_patches,2)/2)+1:size(hog_patches,2);
+%D1 = 1:ceil(size(hog_patches,2)/2);
+%D2 = ceil(size(hog_patches,2)/2)+1:size(hog_patches,2);
 N1 = 1:ceil(size(world_set,2)/2);
 N2 = ceil(size(world_set,2)/2)+1:size(world_set,2);
 
