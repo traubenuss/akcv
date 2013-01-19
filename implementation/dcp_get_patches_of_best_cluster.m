@@ -9,6 +9,9 @@ for i = 1:size(Clusters,2)
     end
 end
 
+display(['getPatchesOfBestCluster: Best score: ', num2str(the_best_score), ...
+         ' with ', num2str(numel(the_best.members)), ' members']);
+
 % return the patch information
 if strcmp(list, 'topRPatchesIndex')
     npatches = numel(the_best.topRPatchesIndex);
@@ -24,7 +27,7 @@ else
     for i = 1:size(patches,2)
         patches{i}.img_nr = hog_patches{the_best.members(i)}.img_nr;
         patches{i}.rect   = hog_patches{the_best.members(i)}.rect;
-        patches{i}.score  = 0; %TODO: svm predict?
+        patches{i}.score  = the_best.scores(i);
     end
 end
 

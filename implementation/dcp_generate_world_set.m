@@ -1,4 +1,4 @@
-function world_set_ret = dcp_generate_world_set(params, world_set_img_folder, world_set_filename, overwrite)
+function world_set_ret = dcp_generate_world_set(params, world_set_filename, overwrite)
 % param1: world_set_img_folder: Folder where the natural world set images
 %         are located
 % param2: world_set_filename: If given, the filename (excluding .mat),
@@ -11,8 +11,8 @@ function world_set_ret = dcp_generate_world_set(params, world_set_img_folder, wo
 
 tic
 if exist(world_set_filename) && ~overwrite
-    world_set = load(world_set_filename, 'world_set_mat');
-    world_set_ret = world_set.world_set_mat;
+    load(world_set_filename, 'world_set_mat');
+    world_set_ret = world_set_mat;
     return;
 end
 

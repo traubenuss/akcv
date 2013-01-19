@@ -23,7 +23,7 @@ addpath('libsvm-dense-3.12/matlab')
 params = dcp_load_params();
 
 % generate world set
-world_set = dcp_generate_world_set(params, 'world_images', 'ws_1.mat', false);
+world_set = dcp_generate_world_set(params, 'ws_1.mat', false);
 
 % specify discovery set
 discovery_set = getFilesInDirAndSubDirs('test_car');
