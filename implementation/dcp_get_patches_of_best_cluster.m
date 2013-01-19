@@ -16,6 +16,7 @@ if strcmp(list, 'topRPatchesIndex')
     for i = 1:size(patches,2)
         patches{i}.img_nr = hog_patches{the_best.topRPatchesIndex(i)}.img_nr;
         patches{i}.rect   = hog_patches{the_best.topRPatchesIndex(i)}.rect;
+        patches{i}.score  = the_best.topRPatchesScore(i);
     end
 else
     npatches = numel(the_best.members);

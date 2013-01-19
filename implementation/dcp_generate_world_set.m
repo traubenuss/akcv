@@ -10,10 +10,10 @@ function world_set_ret = dcp_generate_world_set(params, world_set_img_folder, wo
 %         already exists or was already existing.
 
 tic
-%if exist('world_set.mat') && ~overwrite
-%    world_set = load(world_set_filename, 'world_set');
-%    return;
-%end
+if exist('world_set.mat') && ~overwrite
+    world_set = load(world_set_filename, 'world_set');
+    return;
+end
 
 fileList = getFilesInDirAndSubDirs(params.img_dir);
 numFiles = size(fileList,1);
