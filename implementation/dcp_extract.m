@@ -109,6 +109,7 @@ end
 %score the clusters
 display(['Training finished. Detecting the best cluster...']);
 Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches);
+save('after_score.mat','Clusters');
 
 % select top
 display(['Get patches of best cluster...']);

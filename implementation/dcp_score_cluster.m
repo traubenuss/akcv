@@ -22,7 +22,7 @@ parfor cluster_index=1:cluster_size
     [sorted_patch_scores, sorted_patch_indizes] = sort(patch_scores,'descend');
     
     endindex = min(params.cluster_purity_r,size(patch_scores,2));
-    purity = sum(sorted_patch_scores(1:endindex));   
+    purity = sum(sorted_patch_scores(1:endindex)-params.svm_min_score)/endindex;   
     Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
     Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
         
@@ -33,5 +33,7 @@ parfor cluster_index=1:cluster_size
     discriminativeness = num_firings_D / num_firings_N;
     
     Clusters{cluster_index}.score = purity + params.discriminativeness_weight * discriminativeness;
+    Clusters{cluster_index}.purity = purity;
+    Clusters{cluster_index}.discriminativeness = discriminativeness;
     
 end
