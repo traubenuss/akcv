@@ -1,4 +1,4 @@
-function dcp_visualise_patches(params, patches, discovery_set, is_intermediate, run)
+function dcp_visualise_patches(params, patches, discovery_set, is_intermediate, run, showScores)
 
 if nargin < 4
    is_intermediate = false; 
@@ -14,6 +14,11 @@ if is_intermediate
     for i = 1:npatches
         img = imread(discovery_set{patches{i}.img_nr});
         subplot(nrows,ncols,i+start-1);
+        
+        if(showScores)
+            title(['Patch score' patches{i}.score]);
+        end
+        
         rect = patches{i}.rect;
         subimage(img(rect.tl(1):rect.tl(1)+rect.sz, rect.tl(2):rect.tl(2)+rect.sz, :));
         drawnow;
@@ -29,6 +34,11 @@ else
     for i = 1:npatches
         img = imread(discovery_set{patches{i}.img_nr});
         subplot(nrows,ncols,i);
+        
+        if(showScores)
+            title(['Patch score' patches{i}.score]);
+        end
+        
         rect = patches{i}.rect;
         subimage(img(rect.tl(1):rect.tl(1)+rect.sz, rect.tl(2):rect.tl(2)+rect.sz, :));
     end

@@ -98,7 +98,7 @@ for j = 1:params.niterations   % TODO: -> while converged()
     
     if params.show_intermediate_results
         patches = dcp_get_patches_of_best_cluster(params, Clusters, 'members', hog_patches);
-        dcp_visualise_patches(params, patches, discovery_set, true, j);
+        dcp_visualise_patches(params, patches, discovery_set, true, j, false);
     end
 end
 
@@ -109,5 +109,6 @@ Clusters = dcp_score_cluster(params, Clusters, world_set, hog_patches);
 % select top
 display(['Get patches of best cluster...']);
 patches = dcp_get_patches_of_best_cluster(params, Clusters, 'topRPatchesIndex', hog_patches);
+dcp_visualise_patches(params, patches, discovery_set, true, j, true);
 
 end

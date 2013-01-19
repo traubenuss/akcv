@@ -10,10 +10,11 @@ function world_set_ret = dcp_generate_world_set(params, world_set_img_folder, wo
 %         already exists or was already existing.
 
 tic
-%if exist('world_set.mat') && ~overwrite
-%    world_set = load(world_set_filename, 'world_set');
-%    return;
-%end
+if exist(world_set_filename) && ~overwrite
+    world_set = load(world_set_filename, 'world_set_mat');
+    world_set_ret = world_set.world_set_mat;
+    return;
+end
 
 fileList = getFilesInDirAndSubDirs(params.img_dir);
 numFiles = size(fileList,1);
@@ -47,7 +48,7 @@ for num=1:size(chosen_files,2)
 
     my_temp = ones(params.hog_sz,size(patches,2));
     %compute hog features for patchesk
-    parfor indx=1:size(patches,2)
+    for indx=1:size(patches,2)
         hog_img = patches{indx}.data;
         
         hog_result = dcp_hog(params, hog_img);
