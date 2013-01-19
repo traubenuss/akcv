@@ -9,6 +9,9 @@ for i = 1:size(Clusters,2)
     end
 end
 
+display(['getPatchesOfBestCluster: Best score: ', num2str(the_best_score), ...
+         ' with ', num2str(numel(the_best.members)), ' members']);
+
 % return the patch information
 if strcmp(list, 'topRPatchesIndex')
     npatches = numel(the_best.topRPatchesIndex);
