@@ -24,6 +24,7 @@ else
     for i = 1:size(patches,2)
         patches{i}.img_nr = hog_patches{the_best.members(i)}.img_nr;
         patches{i}.rect   = hog_patches{the_best.members(i)}.rect;
+        patches{i}.score  = 0; %TODO: svm predict?
     end
 end
 
