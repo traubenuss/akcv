@@ -11,8 +11,13 @@ clc
 % initialise VLFeat
 addpath('utils')
 run('vlfeat-0.9.16/toolbox/vl_setup')
-run('libsvm-3.14/matlab/make.m')
-addpath('libsvm-3.14/matlab')
+%run('libsvm-3.14/matlab/make.m')
+%run('liblinear-1.92/matlab/make.m')
+run('libsvm-dense-3.12/matlab/make.m')
+%addpath('libsvm-3.14/matlab')
+%addpath('liblinear-1.92/matlab')
+%addpath('liblinear-1.5-dense/matlab')
+addpath('libsvm-dense-3.12/matlab')
 
 % load DCP specific parameters
 params = dcp_load_params();
