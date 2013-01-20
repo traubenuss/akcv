@@ -21,10 +21,11 @@ npatches_per_pic = min(ceil(params.npatches*params.one_patch_out_of/npictures),.
 
 
 hog_patches = cell(1, npatches_per_pic*npictures);
+img_sizes = zeros(npictures, 2);
 for i = 1:npictures
     % read image
     I = im2single(vl_imreadgray(discovery_set{i}));
-    
+    img_sizes(i,:) = size(I);
     % extract random patches of the discovery set
     % random patches
     patches = dcp_get_random_patches(params, I, npatches_per_pic);
@@ -45,7 +46,7 @@ for i = 1:npictures
     end
     display(['Patches of Image ', num2str(i), ' of ', num2str(npictures), ' extracted'])
 end
-
+clear patches;
 display(['Total ' num2str(size(hog_patches,2)) ' patches extracted']);
 
 
@@ -68,7 +69,7 @@ N1 = 1:ceil(size(world_set,2)/2);
 N2 = ceil(size(world_set,2)/2)+1:size(world_set,2);
 
 % sample subset S of D1 for k-means
-S = dcp_init_sample_for_kmeans(params, D1, hog_patches);
+S = dcp_init_sample_for_kmeans(params, D1, hog_patches, npictures, img_sizes);
 display([num2str(size(S,2)), ' Elements in S']);
 
 % cluster patches using k-means and prune the clusters
@@ -77,7 +78,7 @@ display([num2str(size(Clusters,2)), ' Clusters formed']);
 
 %==========================================================================
 % Iterative Part
-save('init.mat', 'hog_patches', 'Clusters');
+save('init.mat', 'hog_patches', 'Clusters', 'D1', 'D2');
 display('Starting iterative part...');
 for j = 1:params.niterations   % TODO: -> while converged()
     to_delete = [];
@@ -101,7 +102,7 @@ for j = 1:params.niterations   % TODO: -> while converged()
     save(['iter',num2str(j),'.mat'], 'Clusters');
     if params.show_intermediate_results
         patches = dcp_get_patches_of_best_cluster(params, Clusters, 'members', hog_patches);
-        dcp_visualise_patches(params, patches, discovery_set, true, j, false);
+        dcp_visualise_patches(params, patches, discovery_set, true, j, true);
     end
     
 end
@@ -114,6 +115,6 @@ save('after_score.mat','Clusters');
 % select top
 display(['Get patches of best cluster...']);
 patches = dcp_get_patches_of_best_cluster(params, Clusters, 'topRPatchesIndex', hog_patches);
-dcp_visualise_patches(params, patches, discovery_set, true, j, true);
+
 
 end

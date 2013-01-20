@@ -38,7 +38,7 @@ params.prune_clusters_thres = 3; % remove clusters with less than this
 params.new_cluster_by_top_m = 5;
                         
 % k-means specific
-params.kmeans_init_grad_threshold = 200; % threshold for the gradient energy
+params.kmeans_init_grad_threshold = 150; % threshold for the gradient sum
                                          % if a patch is chosen for the
                                          % initial cluserting
 params.kmeans_init_S_sz = 1/10; % which portion of the patches of the half 

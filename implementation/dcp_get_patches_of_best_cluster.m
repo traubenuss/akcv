@@ -3,17 +3,18 @@ function patches = dcp_get_patches_of_best_cluster(params, Clusters, list, hog_p
 % select top
 the_best_score = -inf;
 for i = 1:size(Clusters,2)
-    if Clusters{i}.score > the_best_score
+    
+    if Clusters{i}.discriminativeness > the_best_score
        the_best = Clusters{i};
-       the_best_score = Clusters{i}.score;
+       the_best_score = Clusters{i}.discriminativeness;
     end
 end
 
-display(['getPatchesOfBestCluster: Best score: ', num2str(the_best_score), ...
-         ' with ', num2str(numel(the_best.members)), ' members']);
 
 % return the patch information
 if strcmp(list, 'topRPatchesIndex')
+    display(['getPatchesOfBestCluster: Best score: ', num2str(the_best.score), ...
+        ' with ', num2str(numel(the_best.topRPatchesIndex)), ' members']);
     npatches = numel(the_best.topRPatchesIndex);
     patches = cell(1,npatches);
     for i = 1:size(patches,2)
@@ -22,6 +23,8 @@ if strcmp(list, 'topRPatchesIndex')
         patches{i}.score  = the_best.topRPatchesScore(i);
     end
 else
+    display(['getPatchesOfBestCluster: Best score: ', num2str(the_best.score), ...
+        ' with ', num2str(numel(the_best.members)), ' members']);
     npatches = numel(the_best.members);
     patches = cell(1,npatches);
     for i = 1:size(patches,2)
@@ -32,3 +35,4 @@ else
 end
 
 end
+
