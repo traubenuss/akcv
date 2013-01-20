@@ -1,8 +1,53 @@
 \section{Conclusion}
 
 As a conclusion we might say that while the method yields promising results in the paper it was introduced in 
-(see \cite{Singh2012DiscPat}), it needs a lot of computational resources which might render the method unpractical.\\
-\\
+(see \cite{Singh2012DiscPat}), it needs a lot of computational resources which might render the method unpractical to run it on a single desktop computer.\\
+
 It was impossible for us to reproduce the results shown in the publication by Singh et al., but our evaluation results
 might work as a proof of concept and could be improved by running the code on a cluster of computers with a much bigger
-world set $\mathcal{N}$ and bigger discovery set $\mathcal{D}$.  
+world set $\mathcal{N}$ and bigger discovery set $\mathcal{D}$.\\
+
+The implementation of the algorithm was also not trivial, as there were many technical details not mentioned in the paper itself, but referenced on the source code on their website, which was uploaded about 3 weeks before the submission deadline of this project. This uploaded source-code only implements the classification with prelearned SVM classifiers disallowing to train an own discovery set. We contacted the author(s) of the paper via eMail and got following response:\\
+\begin{verbatim}
+Hi Christoph, Robert
+
+I haven't made the training code available yet. Primarily because it
+is non-trivial to run it out-of-the-box. I am working on making it
+available but it will take a couple of weeks. Even after that you will
+need a really good machine (preferably a cluster of machines) to be
+able to run it quickly. Though details of the implementation are in
+the paper and you can try to implement it on your own.
+Saurabh
+
+
+On Sun, Jan 13, 2013 at 5:26 AM, Christoph Bichler
+<christoph.bichler@student.tugraz.at> wrote:
+
+Dear Mr. Singh!
+
+My colleague and me are grad students of Computer Science at a university in
+Austria and are currently doing a lab in which we are supposed to evaluate a
+recent method in computer vision which seems promising to us for further
+research.
+
+We chose to evaluate your paper "Unsupervised Discovery of Mid-Level
+Discriminative Patches" and wanted to thank you for making code to it
+publicly available. You saved us a lot of implementation work already!
+
+A question I have though, is if it possible to train our own models for
+other datasets than the Pascal and MIT Indoor dataset for evaluation? You
+did not say anything about it in the Readme file and i couldn't find a
+possibility at first glance.
+
+It would be very nice if you could tell us if that works with the publicly
+available codebase and if so, how it works.
+
+Of course we would be happy to send you any results of our evaluations once
+we're done.
+
+Kind regards and many greetings from Graz,
+Christoph Bichler and Robert Viehauser
+\end{verbatim}
+
+Although the bad outlook to run an own implementation quickly on our machines to generate examples required for a satisfying evaluation, we decided to implement the whole algorithm on our own.\\
+We are quite satisfied with the result of our implementation, therefore we try to generate more results before the presentation date with larger datasets by running calculations over days.

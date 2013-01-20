@@ -80,7 +80,7 @@ display([num2str(size(Clusters,2)), ' Clusters formed']);
 % Iterative Part
 save('init.mat', 'hog_patches', 'Clusters', 'D1', 'D2');
 display('Starting iterative part...');
-for j = 1:params.niterations   % TODO: -> while converged()
+for j = 1:params.niterations
     to_delete = [];
     for i = 1:size(Clusters,2)
         display(['Training SVM of cluster ', num2str(i), '/', num2str(size(Clusters,2)), ...

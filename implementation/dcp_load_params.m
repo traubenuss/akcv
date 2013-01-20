@@ -4,7 +4,7 @@ function params = dcp_load_params
 % WORLD SET SPECIFIC
 
 %absolute path to image dir
-params.img_dir = '/home/cbichler/Dokumente/Studium/AKCV/SUN2012pascalformat/JPEGImages';
+params.img_dir = 'SUN2012pascalformat/JPEGImages';
 params.n_images= 6000;
 
 %minimum and maximum numbers of patches the algorithm
@@ -22,7 +22,7 @@ params.hog_sz = 1984;
 %==========================================================================
 % DCP Extract
 params.npatches = 10;  % number of patches which should be found
-params.one_patch_out_of = 1000;%2000;  % how many patches should be considered
+params.one_patch_out_of = 1000;  % how many patches should be considered
                                  % when detecting one discriminative patch
                                  % (controls runtime)
 params.max_npatches_per_pic = 1000;

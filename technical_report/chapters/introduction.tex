@@ -13,15 +13,15 @@ A bit more high-level approach would be SIFT matching, which encodes patches at 
 way \cite{Lowe2004SIFT}. According to \cite{Singh2012DiscPat}, such bottom-up approaches work very well for instance recognition, but the results 
 e.g. finding similar instance are not as good.\\
 \\
-As a result, researchers have started to go with more high-level features which unfortunately come with a number of significant practial barriers,
+As a result, researchers have started to go with more high-level features which unfortunately come with a number of significant practical barriers,
 as listed in \cite{Singh2012DiscPat} like non-trivial amounts of hand-labeled training data per semantic entity (object, part etc.) and a lack
 of visual discriminativeness to act as good features for some semantic entities.\\
 \\
 The algorithm proposed by Singh et al. extracts \textit{mid level} discriminative patches. These patches may correspond to parts, objects, ``visual phrases''
 but don't necessarily have to. What is special about the method is that the patches are discovered in an unsupervised manner on just a pile of training images.
 The patches are defined by their \textit{representative}(how often they occur in the visual world) and \textit{discriminative} property (how much they differ from the rest of the visual world).
-To detect the patches, Singh et al. pose this as an unsupervised discriminative clustering problem on a huge unlabeled dataset of image patches.
-They use an iterative procedure which alternates between clusering and training discriminative classifiers (using a linear SVM) while appyling 
+To detect the patches, Singh et al. pose this as an unsupervised discriminative clustering problem on a huge unlabelled dataset of image patches.
+They use an iterative procedure which alternates between clustering and training discriminative classifiers (using a linear SVM) while applying 
 cross-validation to prevent over-fitting.\\
 \\
 The authors of \cite{Singh2012DiscPat} also claim that their method can be used in a supervised setting and reaches state-of-the-art performance,

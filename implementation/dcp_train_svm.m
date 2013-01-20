@@ -45,18 +45,15 @@ for i = 1:params.svm_hard_minining_niters
     display(['train SVM.. ', num2str(i), ' / ', num2str(params.svm_hard_minining_niters),...
              ' Negatives: ', num2str(numel(hard_minings))]);
          
-         
     % check positives     
     [~, ~, pos_decision_values] = svmpredict(rand(size(members_i,2),1), X_pos_svm, C);     
     pos_hard_minings = find(pos_decision_values > params.svm_min_score);
     display(['train SVM.. ', num2str(i), ' / ', num2str(params.svm_hard_minining_niters),...
              ' Positives: ', num2str(numel(pos_hard_minings)), ' of ', num2str(members_i)]);
     
-         
-    if numel(hard_minings) == 0
+    if numel(hard_minings) >= 10
         break;
     end
-    
     
     %[C.w C.b] = vl_pegasos([X_pos world_set(:,N1) world_set(:,hard_minings)], [Y_pos Y_neg Y_neg_minings], 0.1, 'MaxIterations', 5000);
     C = svmtrain([Y_pos_svm; Y_neg_svm; Y_neg_minings_svm], [X_pos_svm; double(world_set(:,N1))'; double(world_set(:,hard_minings))'], '-q -s 0 -t 0 -c 0.1');

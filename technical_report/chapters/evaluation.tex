@@ -1,11 +1,11 @@
 \section{Evaluation}
 
-As stated before, we had problems with the runtime of our implementation on our available hardware.
-Therefore, we could only test our implemenation and the general method of discovering patches based on their visual
+As mentioned in the paper, evaluation of such an unsupervised method is quite difficult. As only qualitative measurement, they introduced terms of purity and coverage. During this project we also tried to implement these measurements over different discovery sets, but as stated before, we had problems with the runtime of our implementation on our available hardware even with one run.
+Therefore, we could only test our implementation and the general method of discovering patches based on their visual
 discriminativness with very basic tests.\\
 \\
 One test we conducted was a discovery set $\mathcal{D}$ of 15 images containing busses, which we trained with a worldset 
-$\mathcal{N}$ of 80.000 patches. The results for the best clusters based on SVM score are visualized in the figure below (top 5 patches), 
+$\mathcal{N}$ of 80.000 patches. The whole calculation of the algorithm took about 10 hours due to the tremendous amount of patches, although the natural world set was precomputed. The results for the best clusters based on SVM score are visualized in the figure below (top 5 patches), 
 the rows show the results per iteration.\\
 \\
 \begin{figure}[h!]
@@ -14,8 +14,8 @@ the rows show the results per iteration.\\
 \caption{Per iteration results - Discriminative patches for busses}
 \end{figure}
 \\
-As we can see, the top cluster is homogeneous with patches from different visual concepts (parts of busses, but also a person).
-To prevent this, Singh et al. encorporated a method to clean up homogeneous cluster by finding what they called ``doublets'' \cite{Singh2012DiscPat}.\\
+As we can see, the top cluster is heterogeneous with patches from different visual concepts (parts of busses, but also a person).
+To prevent this, Singh et al. encorporated a method to clean up heterogeneous cluster by finding what they called ``doublets'' \cite{Singh2012DiscPat}.\\
 \\
 Another test included a discovery set $\mathcal{D}$ of 10 images showing horses, trained with a natural worldset $\mathcal{N}$ of 40.000 patches.
 The results for the best clusters based on the SVM score are shown below (top 5 patches), the rows again visualize the results per iteration.
@@ -29,4 +29,5 @@ The results for the best clusters based on the SVM score are shown below (top 5 
 The SVM scores serves as an approximation for the \textit{purity} of the cluster, i.e. the percentage of
 how many members of the cluster come from the same visual concept. To calculate the \textit{discriminativness}
 of a patch, we have to calculate the ratio of firings of the patch on $\mathcal{D}$ and firings of the patch on $\mathcal{D} \cup \mathcal{N}$.
-Since the results in Figure 1 and 2 are solely based on the SVM score or purity, this measure is missing in this visualization.
+Since the results in Figure 1 and 2 are solely based on the SVM score or purity, this measure is missing in this visualization.\\
+Even the evaluation of purity and discriminativness of the learned clusters took about 5 hours.

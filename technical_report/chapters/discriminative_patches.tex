@@ -13,13 +13,12 @@ In general, our implementation
 follows the one in \cite{Singh2012DiscPat}. We therefore assume that the reader is familiar with it.\\
 \\
 Therefore, we first extracted 1000 random patches (represented as by Singh et al. as HOG features with 9 orientations
-and a cellsize of 8) from each image in the discovery set $\mathcal{D}$. We then pruned the set of patches such that its size
-was at most the size of a parameter we introduced to handle the computation complexity. Then, we randomly permutated
-the set of image patches and split it into sets $\mathcal{D_1}$ and $\mathcal{D_2}$ for training and validation. \\
+and a cellsize of 8) from each image in the discovery set $\mathcal{D}$. Then, we randomly permutated
+the set of image patches and split it into sets $\mathcal{D}_1$ and $\mathcal{D}_2$ for training and validation. \\
 \\
 For an initial clustering we extracted a sample set of $\mathcal{S}$ patches from our set $\mathcal{D_1}$. We chose the size
-of $\mathcal{S}$ to be $\frac{D_1}{10}$ and disallowed patches with very low or no gradient energy (like sky patches).
-We then used k-means(the VLfeat implementation), with k = $\frac{S}{4}$ to obtain an initial clustering in HOG space and removed
+of $\mathcal{S}$ to be $\frac{D_1}{10}$ and disallowed patches with very low or no gradient energy (like sky patches) and prevent choosing patches from the same spatial region in the corresponding image.
+We then used k-means (the VLfeat implementation), with k = $\frac{S}{4}$ to obtain an initial clustering in HOG space and removed
 clusters with less than 3 patches.\\
 \\
 Singh et al. state in \cite{Singh2012DiscPat}, that the only requirement the natural world set needs to fulfill is that
@@ -29,29 +28,30 @@ Singh et al. therefore extracted a big number(6000) of random images from the In
 For building our natural world set $\mathcal{N}$ we used patches extracted from the SUN2012 database \cite{SUN2010}.
 This is a database consisting of 17.000 images from many different scene categories, showing many different objects with a lot of clutter.
 We randomly picked 6000 out of the 17.000 images and randomly extracted a number of patches from each of the picked images to
-ensure a random distribution of the image patches and computed their HOG descriptorrs. For our evaluation we originally
-built a natural world set consisting of HOG descriptors of 300.000 patches, but soon had to discover that it was computationally unfeasible for us
-to use a natural world set of this size with what little computational power we have. In \cite{Singh2012DiscPat} it is never clearly stated of how 
+ensure a random distribution of the image patches and computed their HOG descriptors. For our evaluation we originally
+built a natural world set consisting of HOG descriptors of 300.000 patches, but soon had to discover that it was computationally infeasible for us
+to use a natural world set of this size with what little computational power we have. To be able to vary the computation complexity, the calculated HOG descriptors of our world set was divided in different {\tt .mat} files.\\
+In \cite{Singh2012DiscPat} it is never clearly stated of how 
 many patches their natural world set consists, but it is very probable that it is factors bigger, containing millions of patches.
-Our world set $\mathcal{N}$ is also divided into to equally sized sets $\mathcal{N}_1$ and $\mathcal{N}_2$.\\
+For cross validation, our world set $\mathcal{N}$ is also divided into to equally sized sets $\mathcal{N}_1$ and $\mathcal{N}_2$.\\
 \\
-In the iterative part of the algorithm we train a linear SVM classifier(using LibSVM-dense, C=0.1) for each cluster, using patches within
+In the iterative part of the algorithm we train a linear SVM classifier (using a for dense matrices optimised version of the LibSVM library) with C=0.1 for each cluster, using patches within
 the cluster as positive examples and all patches in $\mathcal{N}_1$ as negative examples. The trained classifiers are then ran on the second part 
 of the discovery set $\mathcal{D}_2$ and new clusters are formed from the top m firings of each detector (for our evaluation we used
 m=5 and considered SVM scores above -1 as firings, as done in \cite{Singh2012DiscPat}). According to \cite{Singh2012DiscPat},
 limiting the cluster size to 5 produces more heterogeneous clusters (patches from the same visual concept). Clusters which fire
 only once or twice on the validation set are considered to be not very discriminative and are killed. The validation set and training
-set are then swapped (so is $\mathcal{N}_1$ and $\mathcal{N}_2$) and the procedure is repeated until convergence (in practice after 4-5 iterations).
+set are then swapped (so is $\mathcal{N}_1$ and $\mathcal{N}_2$) and the procedure is repeated until convergence (in practice after 4-5 iterations). Due to a huge additional computational effort, we introduced a parameter which defines how many iterations are performed, which should not influence the quality of the results.\\
 
 With a natural world set of 300.000 patches the runtime of training the classifier exploded in our implementation, so did the
 memory usage.
 Therefore we had to limit our natural world set and only tested our implementation and evaluated the results with a 
 natural world set of 40.000 to 80.000 patches. Singh et al. used hard iterative mining to handle the complexity of $\mathcal{N}$,
-but this did not result in a faster solution with our implementation.\\
+but this did not result in a more qualitative solution with our implementation.\\
 \\
+\newpage
 A summary of the procedure in pseudocode:\\
-\\
-\begin{verbatim}
+\begin{lstlisting}
    DISCOVER_TOP_N_DISCRIMINATIVE_PATCHES(nw_imgs_path, discovery_imgs_path)
 
 
@@ -82,4 +82,4 @@ A summary of the procedure in pseudocode:\\
    
    A[i] <= purity(K[i]) + lambda * discriminativeness(K[i]), for all i
    return select_top(C, A, n)
-\end{verbatim}
+\end{lstlisting}

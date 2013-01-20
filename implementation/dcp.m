@@ -23,10 +23,10 @@ addpath('libsvm-dense-3.12/matlab')
 params = dcp_load_params();
 
 % generate world set
-world_set = dcp_generate_world_set(params, {'ws_1.mat'}, false);
+world_set = dcp_generate_world_set(params, {'world_set_9orientations/ws_2.mat'}, false);
 
 % specify discovery set
-discovery_set = getFilesInDirAndSubDirs('test_horse');
+discovery_set = getFilesInDirAndSubDirs('test_bus');
 
 
 %% Extracting most discriminative patches
@@ -34,5 +34,3 @@ patches = dcp_extract(params, discovery_set, world_set);
 
 %% Visualisation of the results
 dcp_visualise_patches(params, patches, discovery_set);
-
-%% Evaluation of the results
