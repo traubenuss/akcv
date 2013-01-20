@@ -22,7 +22,7 @@ Y_neg_svm = (-ones(size(N1,2),1));
 
 % negative hard mining
 %[C.w C.b] = vl_pegasos([X_pos world_set(:,N1)], [Y_pos Y_neg], 0.01, 'MaxIterations', 5000);
-C = svmtrain([Y_pos_svm; Y_neg_svm], [X_pos_svm; double(world_set(:,N1))'], '-q -s 0 -t 0 -c 0.1');
+C = svmtrain([Y_pos_svm; Y_neg_svm], [X_pos_svm; double(world_set(:,N1)')], '-q -s 0 -t 0 -c 0.1');
 %C = train([Y_pos_svm; Y_neg_svm], [X_pos_svm; world_set(:,N1)'], '-s 1 -c 0.1')
 
 if isempty(C)
