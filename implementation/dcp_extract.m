@@ -78,7 +78,7 @@ display([num2str(size(Clusters,2)), ' Clusters formed']);
 
 %==========================================================================
 % Iterative Part
-save('init.mat', 'hog_patches', 'Clusters', 'D1', 'D2');
+save('init.mat', 'hog_patches', 'Clusters', 'D1', 'D2', 'discovery_set', 'params');
 display('Starting iterative part...');
 for j = 1:params.niterations
     to_delete = [];

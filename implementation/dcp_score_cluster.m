@@ -18,14 +18,49 @@ for cluster_index=1:cluster_size
         %patch_scores(member_index) = Clusters{cluster_index}.C.w'*patch - Clusters{cluster_index}.C.b;        
     end
  
-    num_firings_D = sum(patch_scores > params.svm_min_score);
-    
     [sorted_patch_scores, sorted_patch_indizes] = sort(patch_scores,'descend');
     
-    endindex = min(params.cluster_purity_r,size(patch_scores,2));
-    purity = sum(sorted_patch_scores(1:endindex)-params.svm_min_score)/endindex;   
-    Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
-    Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
+    % take only one best patch from 1 image into consideration
+    i = 1;
+    finished = false;
+    chosen_pics   = zeros(1,params.cluster_purity_r); % indizes of HOG-patches
+    chosen_idx    = zeros(1,params.cluster_purity_r);
+    chosen_scores = zeros(1,params.cluster_purity_r);
+    while ~finished
+        img_nr = hog_patches{sorted_patch_indizes(i)}.img_nr;
+        if sum(chosen_pics == img_nr) == 0 && sorted_patch_scores(i) > params.svm_min_score
+            chosen_pics(i) = img_nr;
+            chosen_idx(i) = sorted_patch_indizes(i);
+            chosen_scores(i) = sorted_patch_scores(i);
+        end
+        if i >= length(sorted_patch_indizes) || ... % was the last element
+           i >= params.cluster_purity_r || ... % no more elements needed
+           sorted_patch_scores(i) <= params.svm_min_score % no more scores above threshold
+               finished = true;
+        end
+        i = i + 1;
+    end
+    
+    mask = (chosen_pics > 0); % remove zero elements
+    chosen_idx = chosen_idx(mask);
+    chosen_scores = chosen_scores(mask);
+    
+    Clusters{cluster_index}.topRPatchesScore = chosen_scores;%sorted_patch_scores(1:endindex);
+    Clusters{cluster_index}.topRPatchesIndex = chosen_idx;%sorted_patch_indizes(1:endindex);
+    
+    purity = mean(chosen_scores-params.svm_min_score)/2; % scores from -1 to +1 expected, so (x-minsvm) /2
+                                                         % should lead to normalisation to 0 - 1
+    
+                                                         
+    % take only one patch out of 1 image, but consider all number of
+    % firings for discriminativeness
+    num_firings_D = sum(patch_scores > params.svm_min_score);
+    
+    % OLD VERSION:
+    %endindex = min(params.cluster_purity_r,size(patch_scores,2));
+    %purity = sum(sorted_patch_scores(1:endindex)-params.svm_min_score)/endindex;   
+    %Clusters{cluster_index}.topRPatchesScore = sorted_patch_scores(1:endindex);
+    %Clusters{cluster_index}.topRPatchesIndex = sorted_patch_indizes(1:endindex);
     
     display(['Starting discriminativeness calc, Cluster' num2str(cluster_index)])
     

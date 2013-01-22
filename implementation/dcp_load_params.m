@@ -21,11 +21,11 @@ params.hog_stride = 8;
 params.hog_sz = 1984;
 %==========================================================================
 % DCP Extract
-params.npatches = 10;  % number of patches which should be found
-params.one_patch_out_of = 1000;  % how many patches should be considered
+params.npatches = 5;  % number of patches which should be found
+params.one_patch_out_of = 2000;  % how many patches should be considered
                                  % when detecting one discriminative patch
                                  % (controls runtime)
-params.max_npatches_per_pic = 1000;
+params.max_npatches_per_pic = 25;
                                  
 params.pat_maxsz = 300; % maximum size of one patch
 params.pat_minsz = 80;  % minimum size of one patch (must not be smaller than
@@ -41,7 +41,7 @@ params.new_cluster_by_top_m = 5;
 params.kmeans_init_grad_threshold = 150; % threshold for the gradient sum
                                          % if a patch is chosen for the
                                          % initial cluserting
-params.kmeans_init_S_sz = 1/10; % which portion of the patches of the half 
+params.kmeans_init_S_sz = 1/7; % which portion of the patches of the half 
                                 % discovery set is used for the first
                                 % clustering
 params.kmeans_nclusterfactor = 4;
@@ -63,5 +63,7 @@ params.discriminativeness_weight = 1;
 
 params.show_intermediate_results = true;
 params.nintermed_patches_to_visualise = 5;
+
+params.num_of_best_clusters = 3;
 
 end
