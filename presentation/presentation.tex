@@ -61,6 +61,11 @@ Ausgewählte Kapitel Computer Vision
 \end{figure}
 \end{block}
 
+\begin{block}{Paper}
+ Saurabh Singh et al: Unsupervised Discovery of Mid-level Discriminative Patches, ECCV 2012
+\end{block}
+
+
 \end{frame}
 
 \begin{frame}
@@ -96,9 +101,19 @@ We want patches that represents the essence of the image, not just its gradients
 
 
 \begin{frame}
-\frametitle{Motivation}
+\frametitle{Motivation - What makes Paris look like Paris?}
+\begin{block}{Give it a try!}
+$\begin{array}{cc}
+\includegraphics[scale = 0.15]{pics/not_paris.jpg} &
+\includegraphics[scale = 0.15]{pics/paris.jpg}
+\end{array}$
+\end{block}
 
-PARIS - NOT PARIS?
+\begin{block}<2->{Guessed right?}
+\begin{itemize}
+\item Image 1: Non Paris (London),  Image 2: Paris
+\end{itemize}
+\end{block}
 
 \end{frame}
 
@@ -112,9 +127,41 @@ PARIS - NOT PARIS?
 
 \section{Conclusions}
 
-ihre resultate (im paper): detailreicher
+\begin{frame}\frametitle{Results Singh et al. - Pascal VOC 07}
+ \begin{figure}
+  \includegraphics[scale = 0.26]{pics/results_singh_pascal.png}
+  \end{figure}
+\end{frame}
 
-unsere: trotz reduzierter datensätze gute ergebnisse
+\begin{frame}\frametitle{Results Singh et al. - MIT Indoor 67}
+
+\begin{centering}
+ $\begin{array}{cc}
+\includegraphics[scale = 0.22]{pics/results_singh_mit1.png} \hfill &
+\includegraphics[scale = 0.22]{pics/results_singh_mit2.png}
+\end{array}$
+\end{centering}
+
+\end{frame}
+
+\begin{frame}
+\begin{block}{Our thoughts}
+ \begin{itemize}
+  \item Promising method
+  \item Computationally expensive
+  \item ..but also reduced world set/discovery set yields passable results in most cases
+ \end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \begin{block}{Le fin}
+ \begin{centering}
+   Thank you for your attention!
+  \end{centering}
+ \end{block}
+\end{frame}
+
 
 
 \end{document}
