@@ -1,7 +1,7 @@
 function Cluster = dcp_detect_top(params, C, D2, hog_patches)
 
 scores = zeros(1,size(D2,2));
-for i = 1:size(D2,2)
+parfor i = 1:size(D2,2)
 
     [~, ~, scores(i)] = svmpredict(rand(1), double(hog_patches{D2(i)}.hog(:)'), C);
     %scores(i) = C.w'*hog_patches{D2(i)}.hog(:) - C.b;

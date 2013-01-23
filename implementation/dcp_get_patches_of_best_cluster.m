@@ -29,6 +29,7 @@ if strcmp(list, 'topRPatchesIndex')
         end
     end
 else
+    the_best = Clusters{sorted_index(1)};
     display(['getPatchesOfBestCluster: Best score: ', num2str(the_best.score), ...
         ' with ', num2str(numel(the_best.members)), ' members']);
     npatches = numel(the_best.members);

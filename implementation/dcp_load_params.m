@@ -25,7 +25,7 @@ params.npatches = 5;  % number of patches which should be found
 params.one_patch_out_of = 2000;  % how many patches should be considered
                                  % when detecting one discriminative patch
                                  % (controls runtime)
-params.max_npatches_per_pic = 25;
+params.max_npatches_per_pic = 50;
                                  
 params.pat_maxsz = 300; % maximum size of one patch
 params.pat_minsz = 80;  % minimum size of one patch (must not be smaller than
