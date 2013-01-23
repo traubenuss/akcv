@@ -106,6 +106,35 @@ PARIS - NOT PARIS?
 
 \section{Method}
 
+\begin{frame}
+\frametitle{Idea}
+
+Unsupervised learning of "discriminativeness"\\
+(without any evidence of humans)
+
+\begin{block}<2->{Basic Process}
+\begin{itemize}
+\item<2-> Learning patches from the interesting set (discovery set $\mathcal{D}$)
+\item<2-> Against the rest of the world (large world set $\mathcal{N}$)
+\item<2-> Shared feature space: HOG Descriptor
+\item<2-> Unsupervised Learning: k-Means + Support Vector Machine
+\item<2-> Determining clusters of the same "visual concept"
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Algorithm}
+
+\begin{block}{Pseudocode}
+\begin{figure}
+\includegraphics[width= 0.9\textwidth]{pics/algorithm.png}
+\end{figure}
+\end{block}
+
+\end{frame}
 
 \section{Experiments}
 
