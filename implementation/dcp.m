@@ -26,7 +26,7 @@ params = dcp_load_params();
 world_set = dcp_generate_world_set(params, {'world_set_9orientations/ws_2.mat', 'world_set_9orientations/ws_3.mat'}, false);
 
 % specify discovery set
-discovery_set = getFilesInDirAndSubDirs('bicycle_test');
+discovery_set = getFilesInDirAndSubDirs('boat_test');
 
 
 %% Extracting most discriminative patches
