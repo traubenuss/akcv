@@ -62,7 +62,7 @@ else
         ncols = ceil(size(patches,1)/nrows);
         subplot(nrows,ncols,j);
         subimage(sumimg/nsumimg);
-        suptitle('Best Clusters Blended')
+        %suptitle('Best Clusters Blended')
     end
 
 end

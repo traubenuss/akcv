@@ -11,7 +11,7 @@ for cluster_index=1:cluster_size
     num_patches_D = size(hog_patches,2);
     patch_scores = ones(1,num_patches_D);
     
-    parfor member_index=1:num_patches_D
+    for member_index=1:num_patches_D
         patch = double(hog_patches{member_index}.hog(:)');
         [~, ~, patch_scores(member_index)] = svmpredict(rand(1), patch, Clusters{cluster_index}.C);    
 
@@ -77,5 +77,9 @@ for cluster_index=1:cluster_size
     Clusters{cluster_index}.score = purity + params.discriminativeness_weight * discriminativeness;
     Clusters{cluster_index}.purity = purity;
     Clusters{cluster_index}.discriminativeness = discriminativeness;
+ 
+    if(mod(cluster_index, 5) == 0)
+	save(['safety.',num2str(cluster_index),'.mat'],'Clusters'); 
+    end
     
 end

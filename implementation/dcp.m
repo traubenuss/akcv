@@ -26,8 +26,8 @@ params = dcp_load_params();
 world_set = dcp_generate_world_set(params, {'ws_2.mat'}, false);
 
 % specify discovery set
-discovery_set = getFilesInDirAndSubDirs('test_train');
 
+discovery_set = getFilesInDirAndSubDirs('test_train');
 
 %% Extracting most discriminative patches
 patches = dcp_extract(params, discovery_set, world_set);
