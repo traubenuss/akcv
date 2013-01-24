@@ -30,7 +30,7 @@
 %%% setup document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Discriminative Classifier Patches}
+\title{Discriminative Classifier Parts}
 \author{Christoph Bichler and Robert Viehauser}
 \date{24. January 2013}
 
@@ -118,9 +118,8 @@ $\begin{array}{cc}
 \end{frame}
 
 
-
 \section{Method}
-
+\subsection{}
 \begin{frame}
 \frametitle{Idea}
 
@@ -130,10 +129,11 @@ Unsupervised learning of "discriminativeness"\\
 \begin{block}<2->{Basic Process}
 \begin{itemize}
 \item<2-> Learning patches from the interesting set (discovery set $\mathcal{D}$)
-\item<2-> Against the rest of the world (large world set $\mathcal{N}$)
+\\against the rest of the world (large "natural world set" $\mathcal{N}$)
 \item<2-> Shared feature space: HOG Descriptor
-\item<2-> Unsupervised Learning: k-Means + Support Vector Machine
+\item<2-> Learning Methods: k-Means + Support Vector Machine
 \item<2-> Determining clusters of the same "visual concept"
+\item<2-> Choosing the top members of the "best" few Clusters
 \end{itemize}
 \end{block}
 
@@ -145,17 +145,146 @@ Unsupervised learning of "discriminativeness"\\
 
 \begin{block}{Pseudocode}
 \begin{figure}
-\includegraphics[width= 0.9\textwidth]{pics/algorithm.png}
+\includegraphics[width= 0.9\textwidth]{pics/algorithm.png}\\
+\tiny{Source: Saurabh Singh et al.: Unsupervised Discovery of Mid-level Discriminative Patches, ECCV 2012}
 \end{figure}
 \end{block}
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{The Algorithm}
+
+\begin{block}{Drawbacks of unsupervised method}
+\begin{itemize}
+\item Many patches are needed in the discovery set $\mathcal{D}$
+\item Even more in the natural world set $\mathcal{N}$ (tens of millions?)
+\item Very memory and computation time consuming!
+\end{itemize}
+\end{block}
+
+\begin{block}<2->{Problems we had}
+\begin{itemize}
+\item Running out of memory
+\item Very long runtime ($\sim 7\textendash 8h$ per test)
+\item Less technical details known (source code not ready yet)
+\end{itemize}
+\end{block}
+
+\end{frame}
+
 \section{Experiments}
+\subsection{Pascal VOC 2007}
+\begin{frame}
+\frametitle{Busses}
+\begin{figure}
+\includegraphics[height = 0.85\textheight]{pics/bus_iter1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses}
+\begin{figure}
+\includegraphics[height = 0.8\textheight]{pics/bus_best1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses 2}
+\begin{figure}
+\includegraphics[height = 0.85\textheight]{pics/bus_iter2.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses 2}
+\begin{figure}
+\includegraphics[height = 0.9\textheight]{pics/bus_best2_1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses 2}
+\begin{figure}
+\includegraphics[width = 0.85\textwidth]{pics/bus_best2_2.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses 2}
+\begin{figure}
+\includegraphics[width = 0.9\textwidth]{pics/bus_best2_3.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Busses 2}
+\begin{figure}
+\includegraphics[width = 0.9\textwidth]{pics/bus_best2_blend.png}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Horses}
+\begin{figure}
+\includegraphics[width = 0.85\textwidth]{pics/horse_rider.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Horses}
+\begin{figure}
+\includegraphics[width = 0.80\textwidth]{pics/pferdegesichter.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Horses}
+\begin{figure}
+\includegraphics[width = 0.80\textwidth]{pics/jumping_horse.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Horses}
+\begin{figure}
+\includegraphics[width = 0.80\textwidth]{pics/jumping_horse_fence.jpg}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Bicycles}
+\begin{figure}
+\includegraphics[width = 0.75\textwidth]{pics/bicycles_iter.png}
+\end{figure}
+\end{frame}
+
+
+
+
+\subsection{MIT Indoor 67}
+\begin{frame}
+\frametitle{Airport}
+\begin{figure}
+\includegraphics[width = 0.80\textwidth]{pics/airport_architecture.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hairsalon}
+\begin{figure}
+\includegraphics[width = 0.85\textwidth]{pics/hairsalon_chairs.jpg}
+\end{figure}
+\end{frame}
+
 
 
 \section{Conclusions}
-
+\subsection{}
 \begin{frame}\frametitle{Results Singh et al. - Pascal VOC 07}
  \begin{figure}
   \includegraphics[scale = 0.26]{pics/results_singh_pascal.png}
